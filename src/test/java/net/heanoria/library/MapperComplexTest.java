@@ -36,5 +36,10 @@ public class MapperComplexTest extends BaseTest {
         String json = readFile("inner-object-test-two.json");
         Application application = mapper.readValue(json, Application.class);
         Assert.assertNotNull(application);
+        Assert.assertEquals(1.0d, application.getVersion(), 0.1);
+        Assert.assertNotNull(application.getLinks());
+        Assert.assertEquals("http://localhost/images/img.png", application.getLinks().getImageUrl());
+        Assert.assertEquals("http://localhost/thumbnails/img.png", application.getLinks().getThumbnailUrl());
+        Assert.assertEquals("http://localhost/media/medias/video.mov", application.getLinks().getMediaUrl());
     }
 }

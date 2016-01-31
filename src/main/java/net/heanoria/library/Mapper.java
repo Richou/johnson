@@ -27,10 +27,10 @@ public class Mapper {
     }
 
     private <T> void browseObject(T convertedJson) throws IllegalAccessException, NoSuchFieldException {
-        browseInnerObject(convertedJson);
+        browseInnerObject(convertedJson, convertedJson);
     }
 
-    private <T> void browseInnerObject(T convertedJson) throws IllegalAccessException, NoSuchFieldException {
+    private <T> void browseInnerObject(T convertedJson, T origin) throws IllegalAccessException, NoSuchFieldException {
         Field[] declaredFields = convertedJson.getClass().getDeclaredFields();
         for(Field declaredField : declaredFields) {
             declaredField.setAccessible(true);
@@ -41,7 +41,7 @@ public class Mapper {
                 Map<String, String> innerValueMap = matchesProcessing(matcher);
                 for (String innerValueKey : innerValueMap.keySet()) {
                     if(innerValueKey.contains(".")) {
-                        String fetchedValue = processWithDotPath(innerValueMap.get(innerValueKey), convertedJson);
+                        String fetchedValue = processWithDotPath(innerValueMap.get(innerValueKey), origin);
                         replacedValue = replacedValue.replace(innerValueKey, fetchedValue);
                     } else {
                         Field innerField = convertedJson.getClass().getDeclaredField(innerValueMap.get(innerValueKey));
@@ -51,20 +51,20 @@ public class Mapper {
                 }
                 declaredField.set(convertedJson, replacedValue);
             } else if(!(object instanceof Double) && !(object instanceof List) && !(object instanceof Map) && !(object instanceof Integer)) {
-                browseInnerObject(object);
+                browseInnerObject(object, origin);
             }
         }
     }
 
-    private String processWithDotPath(String innerValueKey, Object convertedJson) throws NoSuchFieldException, IllegalAccessException {
+    private String processWithDotPath(String innerValueKey, Object origin) throws NoSuchFieldException, IllegalAccessException {
         StringTokenizer stringTokenizer = new StringTokenizer(innerValueKey, ".");
-        return processInnerPath(stringTokenizer, convertedJson);
+        return processInnerPath(stringTokenizer, origin);
     }
 
-    private String processInnerPath(StringTokenizer path, Object innerObject) throws NoSuchFieldException, IllegalAccessException {
-        Field declaredField = innerObject.getClass().getDeclaredField(path.nextToken());
+    private String processInnerPath(StringTokenizer path, Object origin) throws NoSuchFieldException, IllegalAccessException {
+        Field declaredField = origin.getClass().getDeclaredField(path.nextToken());
         declaredField.setAccessible(true);
-        Object objectGetWithPath = declaredField.get(innerObject);
+        Object objectGetWithPath = declaredField.get(origin);
         if(objectGetWithPath instanceof String) {
             return (String) objectGetWithPath;
         } else {
