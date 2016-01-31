@@ -21,3 +21,20 @@ For example :
 ```
 
 The subtitle field will contains "Test - Subtest"
+
+Usage 
+============================
+
+To perform the variable injection, I will suppose that you have the json string in the variable "json" 
+
+```
+
+String json = "{...}"
+// Instanciate the mapper
+Mapper mapper = new Mapper();
+// The Book class is the object representation of the json
+Book book = mapper.readValue(json, Book.class);
+
+```
+
+That it's !
