@@ -50,7 +50,7 @@ public class Mapper {
                     }
                 }
                 declaredField.set(convertedJson, replacedValue);
-            } else if(!(object instanceof Double) && !(object instanceof List) && !(object instanceof Map) && !(object instanceof Integer)) {
+            } else if(object != null && !(object instanceof Double) && !(object instanceof List) && !(object instanceof Map) && !(object instanceof Integer)) {
                 browseInnerObject(object, origin);
             }
         }

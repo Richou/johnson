@@ -5,6 +5,7 @@ public class Application {
     private Double version;
     private Path path;
     private Links links;
+    private Library library;
 
     public Double getVersion() {
         return version;
@@ -28,5 +29,13 @@ public class Application {
 
     public void setLinks(Links links) {
         this.links = links;
+    }
+
+    public Library getLibrary() {
+        return library;
+    }
+
+    public void setLibrary(Library library) {
+        this.library = library;
     }
 }

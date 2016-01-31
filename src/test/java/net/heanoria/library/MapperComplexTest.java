@@ -42,4 +42,18 @@ public class MapperComplexTest extends BaseTest {
         Assert.assertEquals("http://localhost/thumbnails/img.png", application.getLinks().getThumbnailUrl());
         Assert.assertEquals("http://localhost/media/medias/video.mov", application.getLinks().getMediaUrl());
     }
+
+    @Test
+    public void testComplexDeserializationDeeper() throws IllegalAccessException, NoSuchFieldException, IOException {
+        String json = readFile("inner-object-test-three.json");
+        Application application = mapper.readValue(json, Application.class);
+        Assert.assertNotNull(application);
+        Assert.assertEquals(1.0d, application.getVersion(), 0.1);
+        Assert.assertNotNull(application.getLibrary());
+        Assert.assertNotNull(application.getLibrary().getLinks());
+        Assert.assertEquals("Liens", application.getLibrary().getName());
+        Assert.assertEquals("http://localhost/images/img.png", application.getLibrary().getLinks().getImageUrl());
+        Assert.assertEquals("http://localhost/thumbnails/img.png", application.getLibrary().getLinks().getThumbnailUrl());
+        Assert.assertEquals("http://localhost/media/medias/video.mov", application.getLibrary().getLinks().getMediaUrl());
+    }
 }
