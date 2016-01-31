@@ -1,0 +1,11 @@
+{
+  "name": "Robin Hobb",
+  "birth": 1952,
+  "url": {
+    "site": "http://www.google.com",
+    "professional": "http://www.google.fr",
+    "home": "http://www.youtube.com"
+  },
+  "video": "${url.home}/watch?v=so49WpSj9bo",
+  "description": "${name} was born in ${birth}"
+}

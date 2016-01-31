@@ -1,0 +1,12 @@
+{
+  "version": 1.0,
+  "path": {
+    "env": "http://localhost/",
+    "media": "http://localhost/media/"
+  },
+  "links": {
+    "image_url": "${url.env}images/img.png",
+    "thumbnail_url": "${url.env}thumbnails/img.png",
+    "media_url": "${url.media}medias/video.mov"
+  }
+}
