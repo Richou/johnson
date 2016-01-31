@@ -12,7 +12,7 @@ This library allow to put some variables in json, after the deserialization perf
 
 For example :
 
-```
+```json
 {
   "title" : "Test",
   "author": "Johnson",
@@ -27,7 +27,7 @@ Usage
 
 To perform the variable injection, I will suppose that you have the json string in the variable "json" 
 
-```
+```java
 
 String json = "{...}"
 // Instanciate the mapper
