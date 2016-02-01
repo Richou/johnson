@@ -26,6 +26,11 @@ public class Mapper {
         return convertedJson;
     }
 
+    public <T> T injectValue(T object) throws NoSuchFieldException, IllegalAccessException {
+        browseObject(object);
+        return object;
+    }
+
     private <T> void browseObject(T convertedJson) throws IllegalAccessException, NoSuchFieldException {
         browseInnerObject(convertedJson, convertedJson);
     }
