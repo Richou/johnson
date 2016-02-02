@@ -1,0 +1,17 @@
+{
+  "version": 1.2,
+  "url": {
+    "site": "http://site.local/",
+    "professional": "http://pro.local/",
+    "home": "http://home.local/"
+  },
+  "versions": {
+    "1.0": {
+      "links": {
+        "image_url": "${url.site}images/img.png",
+        "thumbnail_url": "${url.professional}thumbnails/img.png",
+        "media_url": "${url.home}medias/video.mov"
+      }
+    }
+  }
+}

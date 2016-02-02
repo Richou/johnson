@@ -45,7 +45,7 @@ public class Mapper {
                 String replacedValue = (String) object;
                 Map<String, String> innerValueMap = matchesProcessing(matcher);
                 for (String innerValueKey : innerValueMap.keySet()) {
-                    if(innerValueKey.contains(".")) {
+                    if (innerValueKey.contains(".")) {
                         String fetchedValue = processWithDotPath(innerValueMap.get(innerValueKey), origin);
                         replacedValue = replacedValue.replace(innerValueKey, fetchedValue);
                     } else {
@@ -55,7 +55,11 @@ public class Mapper {
                     }
                 }
                 declaredField.set(convertedJson, replacedValue);
-            } else if(object != null && !(object instanceof Double) && !(object instanceof List) && !(object instanceof Map) && !(object instanceof Integer)) {
+            } else if(object != null && object instanceof Map) {
+                for(Object key : ((Map)object).keySet()) {
+                    browseInnerObject(((Map)object).get(key), origin);
+                }
+            } else if(object != null && !(object instanceof Double) && !(object instanceof List) && !(object instanceof Integer)) {
                 browseInnerObject(object, origin);
             }
         }
