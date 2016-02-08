@@ -101,7 +101,7 @@
 
     <scm>
         <url>https://github.com/Richou/johnson</url>
-        <connection>scm:git:git://github.com/Richou/johnson.git</connection>
+        <connection>scm:git:git@github.com:Richou/johnson.git</connection>
         <developerConnection>scm:git:git@github.com:Richou/johnson.git</developerConnection>
     </scm>
 </project>
