@@ -38,3 +38,9 @@ Book book = mapper.readValue(json, Book.class);
 ```
 
 That it's !
+
+Warning
+============================
+
+This mapper is suitable for small, medium objects.
+Do not use this for huge, deep object, it perform java reflection and performance is really low.
