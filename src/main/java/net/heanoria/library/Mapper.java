@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,8 +33,10 @@ public class Mapper {
     }
 
     private <T> void browseInnerObject(T convertedJson, T origin) throws IllegalAccessException, NoSuchFieldException {
-        Field[] declaredFields = convertedJson.getClass().getDeclaredFields();
-        for(Field declaredField : declaredFields) {
+        List<Field> fullFields = new ArrayList<Field>();
+        fullFields.addAll(Arrays.asList(convertedJson.getClass().getDeclaredFields()));
+        fullFields.addAll(Arrays.asList(convertedJson.getClass().getSuperclass().getDeclaredFields()));
+        for(Field declaredField : fullFields) {
             declaredField.setAccessible(true);
             Object object = declaredField.get(convertedJson);
             if(object instanceof String) {
@@ -71,7 +70,13 @@ public class Mapper {
     }
 
     private String processInnerPath(StringTokenizer path, Object origin) throws NoSuchFieldException, IllegalAccessException {
-        Field declaredField = origin.getClass().getDeclaredField(path.nextToken());
+        Field declaredField;
+        String token = path.nextToken();
+        try {
+            declaredField = origin.getClass().getDeclaredField(token);
+        }catch (NoSuchFieldException ex) {
+            declaredField = origin.getClass().getSuperclass().getDeclaredField(token);
+        }
         declaredField.setAccessible(true);
         Object objectGetWithPath = declaredField.get(origin);
         if(objectGetWithPath instanceof String) {
