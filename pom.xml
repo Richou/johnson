@@ -3,7 +3,7 @@
 
     <groupId>net.heanoria.library</groupId>
     <artifactId>johnson</artifactId>
-    <version>0.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>johnson</name>
@@ -102,6 +102,6 @@
         <url>https://192.30.252.129/Richou/johnson</url>
         <connection>scm:git:https://192.30.252.129/Richou/johnson.git</connection>
         <developerConnection>scm:git:git@192.30.252.129:Richou/johnson.git</developerConnection>
-        <tag>johnson-0.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 </project>
