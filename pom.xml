@@ -100,9 +100,9 @@
     </distributionManagement>
 
     <scm>
-        <url>https://github.com/Richou/johnson</url>
-        <connection>scm:git:https://github.com/Richou/johnson.git</connection>
-        <developerConnection>scm:git:git@github.com:Richou/johnson.git</developerConnection>
+        <url>https://192.30.252.129/Richou/johnson</url>
+        <connection>scm:git:https://192.30.252.129/Richou/johnson.git</connection>
+        <developerConnection>scm:git:git@192.30.252.129:Richou/johnson.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>
