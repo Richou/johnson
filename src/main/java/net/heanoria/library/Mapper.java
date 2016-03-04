@@ -1,5 +1,6 @@
 package net.heanoria.library;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -26,6 +27,12 @@ public class Mapper {
 
     public void configure(SerializationFeature feature, boolean active) {
         objectMapper.configure(feature, active);
+    }
+
+    public <T> T readValue(String content, TypeReference<T> type) throws IOException, NoSuchFieldException, IllegalAccessException {
+        T convertedJson = objectMapper.readValue(content, type);
+        browseObject(convertedJson);
+        return convertedJson;
     }
 
     /**
@@ -86,30 +93,17 @@ public class Mapper {
                 declaredField.setAccessible(true);
                 Object object = declaredField.get(convertedJson);
                 if (object instanceof String) {
-                    // If the object is instance of string we do the replacement if needed
-                    Matcher matcher = pattern.matcher((String) object);
-                    // The pattern is found with a regex it will search for ${xx.aa} pattern
-                    String replacedValue = (String) object;
-                    // The matched values will be collected in a map
-                    Map<String, String> innerValueMap = matchesProcessing(matcher);
-                    for (String innerValueKey : innerValueMap.keySet()) {
-                        if (innerValueKey.contains(".")) {
-                            // If the value contains a dot, that means we have a deep object inside, so we fetch the correct value
-                            // with dot path and do the replacement
-                            String fetchedValue = processWithDotPath(innerValueMap.get(innerValueKey), origin);
-                            replacedValue = replacedValue.replace(innerValueKey, fetchedValue);
-                        } else {
-                            // Else we do the replacement directly
-                            Field innerField = convertedJson.getClass().getDeclaredField(innerValueMap.get(innerValueKey));
-                            innerField.setAccessible(true);
-                            replacedValue = replacedValue.replace(innerValueKey, String.valueOf(innerField.get(convertedJson)));
-                        }
-                    }
+                    String replacedValue = processReplacement(convertedJson, origin, (String) object);
                     declaredField.set(convertedJson, replacedValue);
                 } else if (object != null && object instanceof Map) {
                     // If value is a map, we have to browse the map and call this method with the new value
                     for (Object key : ((Map) object).keySet()) {
-                        browseInnerObject(((Map) object).get(key), origin);
+                        if(!(((Map) object).get(key) instanceof String)) {
+                            browseInnerObject(((Map) object).get(key), origin);
+                        } else {
+                            String replacement = processReplacement(convertedJson, origin, (String) ((Map) object).get(key));
+                            ((Map) object).put(key, replacement);
+                        }
                     }
                 } else if (object != null && !(object instanceof Double) && !(object instanceof List) && !(object instanceof Integer) && !(object instanceof Boolean)) {
                     // The value is not a string or a map so we don't need to process
@@ -117,6 +111,29 @@ public class Mapper {
                 }
             }
         }
+    }
+
+    private <T> String processReplacement(T convertedJson, T origin, String object) throws NoSuchFieldException, IllegalAccessException {
+        // If the object is instance of string we do the replacement if needed
+        Matcher matcher = pattern.matcher(object);
+        // The pattern is found with a regex it will search for ${xx.aa} pattern
+        String replacedValue = object;
+        // The matched values will be collected in a map
+        Map<String, String> innerValueMap = matchesProcessing(matcher);
+        for (String innerValueKey : innerValueMap.keySet()) {
+            if (innerValueKey.contains(".")) {
+                // If the value contains a dot, that means we have a deep object inside, so we fetch the correct value
+                // with dot path and do the replacement
+                String fetchedValue = processWithDotPath(innerValueMap.get(innerValueKey), origin);
+                replacedValue = replacedValue.replace(innerValueKey, fetchedValue);
+            } else {
+                // Else we do the replacement directly
+                Field innerField = convertedJson.getClass().getDeclaredField(innerValueMap.get(innerValueKey));
+                innerField.setAccessible(true);
+                replacedValue = replacedValue.replace(innerValueKey, String.valueOf(innerField.get(convertedJson)));
+            }
+        }
+        return replacedValue;
     }
 
     /**

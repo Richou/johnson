@@ -1,0 +1,16 @@
+{
+  "version": 1.2,
+  "url": {
+    "site": "http://site.local/",
+    "professional": "http://pro.local/",
+    "home": "http://home.local/"
+  },
+  "size": {
+    "XS": "${url.site}extra-small",
+    "S" : "${url.site}small",
+    "M" : "${url.professional}medium",
+    "L" : "${url.site}large",
+    "XL" : "${url.home}extra-large",
+    "XXL" : "${url.site}extra-extra-large"
+  }
+}
