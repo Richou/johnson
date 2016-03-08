@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/Richou/johnson.svg?branch=master)](https://travis-ci.org/Richou/johnson)
 
-Jackson based deserialisation with variable injection
+Jackson based deserialisation with variable injection/replacement
 
 Introduction
 ============================
@@ -25,7 +25,7 @@ The subtitle field will contains "Test - Subtest"
 Usage 
 ============================
 
-To perform the variable injection, I will suppose that you have the json string in the variable "json" 
+To perform the variable injection, let's suppose that you have the json string in the variable "json" 
 
 ```java
 
@@ -35,6 +35,15 @@ Mapper mapper = new Mapper();
 // The Book class is the object representation of the json
 Book book = mapper.readValue(json, Book.class);
 
+```
+
+Or if you don't need to perform the serialization stuff
+
+```java
+// Instanciate the mapper
+Mapper mapper = new Mapper();
+// Just perform the variable substitution in an object
+Book injectedBook = mapper.injectValue(book);
 ```
 
 That it's !
