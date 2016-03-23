@@ -27,12 +27,12 @@ For example 2 :
 ```json
 {
   "url": {
-    "prod": "http://some.prod.url/,
-    "dev": "http://some.dev.url/
+    "prod": "http://some.prod.url/",
+    "dev": "http://some.dev.url/"
   },
   "sites": {
     "images": "${url.prod}images",
-    "thumbnails: "${url.dev}thumbs
+    "thumbnails: "${url.dev}thumbs"
   }
 }
 ```
