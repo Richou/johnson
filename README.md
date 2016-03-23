@@ -22,6 +22,22 @@ For example :
 
 The subtitle field will contains "Test - Subtest"
 
+For example 2 :
+
+```json
+{
+  "url": {
+    "prod": "http://some.prod.url/,
+    "dev": "http://some.dev.url/
+  },
+  "sites": {
+    "images": "${url.prod}images",
+    "thumbnails: "${url.dev}thumbs
+  }
+}
+```
+In this example, the images field in sites object will contains "http://some.prod.url/images" and the thumbnails field will contains "http://some.dev.url/thumbs"
+
 Usage 
 ============================
 
