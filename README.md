@@ -32,7 +32,7 @@ For example 2 :
   },
   "sites": {
     "images": "${url.prod}images",
-    "thumbnails: "${url.dev}thumbs"
+    "thumbnails": "${url.dev}thumbs"
   }
 }
 ```
