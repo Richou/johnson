@@ -10,7 +10,7 @@ Introduction
 
 This library allow to put some variables in json, after the deserialization performed by jackson, it will replace the variable by the value found in the object.
 
-For example :
+__For example__ :
 
 ```json
 {
@@ -19,13 +19,13 @@ For example :
   "subtitle" : "${title} - Subtest"
 }
 ```
-In java side : 
+__In java side__ : 
 
 ```java
-foo.getSubtitle(); // Will return "Test - Subtest"
+foo.getSubtitle(); // Will returns "Test - Subtest"
 ```
 
-For example 2 :
+__For example 2__ :
 
 ```json
 {
@@ -40,11 +40,11 @@ For example 2 :
 }
 ```
 
-In Java side : 
+__In Java side__ : 
 
 ```java
-foo2.getSites().getImages(); // Will return "http://some.prod.url/images"
-foo2.getSites().getThumbnails(); // Will return "http://some.dev.url/thumbs"
+foo2.getSites().getImages(); // Will returns "http://some.prod.url/images"
+foo2.getSites().getThumbnails(); // Will returns "http://some.dev.url/thumbs"
 ```
 
 Usage 
