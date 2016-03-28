@@ -19,8 +19,11 @@ For example :
   "subtitle" : "${title} - Subtest"
 }
 ```
+In java side : 
 
-The subtitle field will contains "Test - Subtest"
+```java
+foo.getSubtitle(); // Will return "Test - Subtest"
+```
 
 For example 2 :
 
@@ -36,7 +39,13 @@ For example 2 :
   }
 }
 ```
-In this example, the images field in sites object will contains "http://some.prod.url/images" and the thumbnails field will contains "http://some.dev.url/thumbs"
+
+In Java side : 
+
+```java
+foo2.getSites().getImages(); // Will return "http://some.prod.url/images"
+foo2.getSites().getThumbnails(); // Will return "http://some.dev.url/thumbs"
+```
 
 Usage 
 ============================
