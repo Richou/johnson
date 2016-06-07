@@ -98,14 +98,18 @@ public class Mapper {
                 } else if (object != null && object instanceof Map) {
                     // If value is a map, we have to browse the map and call this method with the new value
                     for (Object key : ((Map) object).keySet()) {
-                        if(!(((Map) object).get(key) instanceof String)) {
+                        if (!(((Map) object).get(key) instanceof String)) {
                             browseInnerObject(((Map) object).get(key), origin);
                         } else {
                             String replacement = processReplacement(convertedJson, origin, (String) ((Map) object).get(key));
                             ((Map) object).put(key, replacement);
                         }
                     }
-                } else if (object != null && !(object instanceof Double) && !(object instanceof List) && !(object instanceof Integer) && !(object instanceof Boolean)) {
+                } else if (object != null && object instanceof List) {
+                    for(Object item : (List)object) {
+                        browseInnerObject(item, origin);
+                    }
+                } else if (object != null && !(object instanceof Double) && !(object instanceof Integer) && !(object instanceof Boolean)) {
                     // The value is not a string or a map so we don't need to process
                     browseInnerObject(object, origin);
                 }

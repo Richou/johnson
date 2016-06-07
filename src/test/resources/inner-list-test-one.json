@@ -1,0 +1,27 @@
+{
+  "version": 1.2,
+  "url": {
+    "site": "http://site.local/",
+    "professional": "http://pro.local/",
+    "home": "http://home.local/"
+  },
+  "links": [
+    {
+      "image_url": "${url.site}images/img01.png",
+      "thumbnail_url": "${url.professional}thumbnails/img01.png",
+      "media_url": "${url.home}medias/video01.mov"
+    },{
+      "image_url": "${url.site}images/img02.png",
+      "thumbnail_url": "${url.professional}thumbnails/img02.png",
+      "media_url": "${url.home}medias/video02.mov"
+    },{
+      "image_url": "${url.site}images/img03.png",
+      "thumbnail_url": "${url.professional}thumbnails/img03.png",
+      "media_url": "${url.home}medias/video03.mov"
+    },{
+      "image_url": "${url.site}images/img04.png",
+      "thumbnail_url": "${url.professional}thumbnails/img04.png",
+      "media_url": "${url.home}medias/video04.mov"
+    }
+  ]
+}
