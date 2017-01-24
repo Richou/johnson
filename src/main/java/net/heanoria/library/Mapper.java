@@ -109,7 +109,7 @@ public class Mapper {
                     for(Object item : (List)object) {
                         browseInnerObject(item, origin);
                     }
-                } else if (object != null && !(object instanceof Double) && !(object instanceof Integer) && !(object instanceof Boolean)) {
+                } else if (object != null && !(object instanceof Double) && !(object instanceof Integer) && !(object instanceof Boolean) && !(object instanceof Short) && !(object instanceof Long) && !(object instanceof Float) && !(object instanceof Character) && !(object.getClass().isEnum())) {
                     // The value is not a string or a map so we don't need to process
                     browseInnerObject(object, origin);
                 }
