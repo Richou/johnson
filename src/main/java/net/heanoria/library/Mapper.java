@@ -1,5 +1,6 @@
 package net.heanoria.library;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -89,7 +90,7 @@ public class Mapper {
         fullFields.addAll(Arrays.asList(convertedJson.getClass().getDeclaredFields()));
         fullFields.addAll(Arrays.asList(convertedJson.getClass().getSuperclass().getDeclaredFields()));
         for(Field declaredField : fullFields) {
-            if(!Modifier.isTransient(declaredField.getModifiers())) {
+            if(!Modifier.isTransient(declaredField.getModifiers())  && !declaredField.isAnnotationPresent(JsonIgnore.class)) {
                 declaredField.setAccessible(true);
                 Object object = declaredField.get(convertedJson);
                 if (object instanceof String) {
